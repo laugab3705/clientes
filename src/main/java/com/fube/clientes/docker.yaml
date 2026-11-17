@@ -1,0 +1,44 @@
+services:
+  db-clients:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: clientes_db
+      POSTGRES_USER: clientes
+      POSTGRES_PASSWORD: clientes
+    ports: ["5433:5432"]
+    volumes: [clientes_data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready - U clientes -d clientes_db"]
+      interval: 5s
+      retries: 10
+
+  db-inventario:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: inventario_db
+      POSTGRES_USER: inventario
+      POSTGRES_PASSWORD: inventario
+    ports: ["5434:5432"]
+    volumes: [inventario_data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready - U inventario -d inventario_db"]
+      interval: 5s
+      retries: 10
+
+  db-pedidos:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: pedidos_db
+      POSTGRES_USER: pedidos
+      POSTGRES_PASSWORD: pedidos
+    ports: ["5435:5432"]
+    volumes: [pedidos_data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready - U pedidos -d pedidos_db"]
+      interval: 5s
+      retries: 10
+
+volumes:
+  clientes_data:
+  inventario_data:
+  pedidos_data:
