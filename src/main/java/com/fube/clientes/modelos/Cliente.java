@@ -1,5 +1,8 @@
 package com.fube.clientes.modelos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,4 +36,7 @@ public class Cliente {
     @Column
     private String direccion;
 
+    @Builder.Default
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Pedido> pedidos = new ArrayList<>();
 }
